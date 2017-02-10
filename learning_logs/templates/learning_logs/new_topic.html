@@ -1,0 +1,28 @@
+{% extends "learning_logs\base.html" %}
+{% load bootstrap3 %}
+
+{% block header %}
+  <h2>Add a new topic:</h2>
+{% endblock header %}
+
+{% block content %}
+   <!--# Define a HTML form. action argument tells the server where to send the 
+   data submitted in the form. In this case we send it back to the view 
+   function new_topic(). Method argument tells the browser to submit the data
+   as a POST request.-->
+   <!--Add class = form attribute to apply bootstrap3 style-->
+  <form action="{% url 'learning_logs:new_topic' %}"  method='post' 
+    class="form">
+    <!--# csrf_token template tag prevents attackers from gaining unauthorized
+    access to the server -->
+    {% csrf_token %}
+    <!--form.as_p tells Dhango to create all the fields necessary and render
+    the elements in paragraph format-->
+    {% bootstrap_form form %}
+    <!--Define a submit button.-->
+    {% buttons %}
+      <button name="submit" class="btn btn-primary">Add Topic</button>
+    {% endbuttons %}
+  </form>
+
+{% endblock content %}

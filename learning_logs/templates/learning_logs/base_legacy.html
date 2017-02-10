@@ -1,0 +1,33 @@
+<!--When building a website some elements will almost certainly appear on
+ each page. Instead of writing these elements for every page, we can write a 
+ base template and then have each page inherit from the base. -->
+ 
+ <!-- Create a paragraph containing the name of the project which also acts as
+a link to the home page. Use template tag, to generate a link. The template tag
+generates a URL matching the URL pattern defined in learning_logs\urls.py with
+the name 'index'. learning_logs is the namespace and index is a uniquely named 
+URL pattern in that name space.
+In basic HTML the syntax is <a href="link_url">link text</a> -->
+ <p>
+  <a href="{%url 'learning_logs:index' %}">Learning Log</a> -
+  <!--Include a link to the topics page.-->
+  <a href="{%url 'learning_logs:topics' %}">Topics</a> -
+  <!--Include in the base template an element that will greet the user if 
+  logged in, or link to the login page-->
+  <!--in Django every tempalte has a user variable available with an 
+  is_authenticated attribute that allows displaying different messages to
+  authenticated and unauthenticated users.-->
+  {% if user.is_authenticated %}
+    Hello, {{ user.username }}.
+    <!--If user is authenticated display log out link-->
+    <a href="{% url 'users:logout' %}">Log out</a>
+  {% else %}
+  <a href="{% url 'users:login' %}">Log in</a> -
+  <!--Show register link to any users not logged in-->
+  <a href="{% url 'users:register' %}">Register</a>
+  {% endif %}
+</p>
+
+<!--Insert blcok tags. This is a place holder and the child template will 
+define what goes here.-->
+{% block content %}{% endblock content %}

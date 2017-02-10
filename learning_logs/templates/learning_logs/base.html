@@ -1,0 +1,87 @@
+<!--Load collection of template tags available in bootstrap-->
+{% load bootstrap3 %}
+
+<!--Declare file as HTML document written in english.-->
+<!DOCTYPE html>
+<html lang="en">
+  <!--Head of an HTML file doesn't have content.  Only tells browser what it
+  needs to know to display the page correctly-->  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!--Title element will be displayed on the title bar of the web browser-->
+    <title>Learning Log</title>
+    
+    <!--Use a django-bootstrap3's custom template tag which tells Django to 
+    include all the Bootstrap style files.-->
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+  </head>
+  
+  <!--Open with body tag-->
+  <body>
+  
+    <!--Static navbar-->
+      <!--Nav element indicates that navigation links section of the page
+      Everything in this element is styled according to the rules defined by
+      navbar, navbar-default and navbar-static-top-->
+      <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+        
+          <div class="navbar-header">
+            <!--Define a buton that will appear if the browser window is too
+            narrow for the whole navigation bar.
+            The navigation bar will appear in a drop down list if the button 
+            is clicked. 'collapse' reference causes the navigation bar to 
+            collapse if the browser window is too small.-->  
+            <button type="button" class="navbar-toggle collapsed"
+                data-toggle="collapse" data-target="#navbar"
+                aria-expanded="false" aria-controls="navbar">
+            </button>
+            <!--Set the project's name to appear at the far left and link it
+            to the home page.-->
+            <a class="navbar-brand" href="{% url 'learning_logs:index' %}">
+                Learning Log</a>
+          </div>
+          
+          <!--Define a set of buttons users can navigate with. A navigation
+          bar is a list that starts with ul and each item is a listed with li-->
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="{% url 'learning_logs:topics' %}">Topics</a></li>
+            </ul>
+            
+            <!--Define more navigation links to appear on the far right-->
+            <ul class="nav navbar-nav navbar-right">
+              {% if user.is_authenticated %}
+                <li><a>Hello, {{ user.username }}.</a></li>
+                <li><a href="{% url 'users:logout' %}">Log out</a></a></li>
+              {% else %}
+                <li><a href="{% url 'users:login' %}">Log in</a></li>
+                <li><a href="{% url 'users:register' %}">Register</a></li>
+              {% endif %}
+            </ul>
+          </div><!--Nav collapse-->
+        
+        </div>
+      </nav>
+      
+      <!--Open div with class container. A div is a section of a webpage that
+      can be used for any purpose and can be styled with a borders, margins, 
+      padding and other style rules.
+      This div acts as a container for two elements, a new block called header
+      and the content block.-->
+      <div class="container">
+        <div class="page-header">
+          {% block header %}{% endblock header %}
+        </div>
+        <div>
+          {% block content %}{% endblock content %}
+        </div>
+        
+      </div><!--/container-->
+      
+    </body>
+  </html>

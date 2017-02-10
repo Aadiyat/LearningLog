@@ -1,0 +1,37 @@
+{% extends "learning_logs\base.html" %}
+
+{% block header %}
+  <h1>Topics</h1>
+{% endblock header %}
+
+{% block content %}
+
+  <!--In standard HTML a bulleted list is called an unordered list, indcated by 
+<ul</ul> --> 
+  <ul>
+      <!--Template tag for a for loop. THis loops thorugh the list topics from
+      the context dictionry-->
+    {% for topic in topics %}
+       <!--Wrapping the variable name in double braces will return the value
+       associated with that variable. In this case it will return the name of 
+       the topic object.
+       The li tags indicate a list item and anything wrapped in this will 
+       appear in bulleted form.-->
+      <li>
+        <h3>
+          <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
+        </h3>  
+      </li>
+    <!--This tag tells django what to do if there are no topics, i.e. topics
+    list is empty-->
+    {% empty %}
+      <li>No topics have been added yet.</li>
+    <!--Close for loop.-->
+    {% endfor %}
+  </ul>
+
+  
+  <h4><a href="{% url 'learning_logs:new_topic' %}">Add a new topic:</a></h4>
+  
+  
+{% endblock content %}

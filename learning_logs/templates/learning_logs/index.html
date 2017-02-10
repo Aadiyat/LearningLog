@@ -1,0 +1,27 @@
+<!--Index will inherit from the base template-->
+
+<!--A child template must have an { % extends % } tag on the first line to tell
+which base template to inherit from. This pulls everything from the base 
+template and allows the child template to define what goes in the space 
+reserved  by the content block.-->
+{% extends "learning_logs/base.html" %}
+
+<!--Extends header block to give users information about a page.-->
+{% block header %}
+  <div class="jumbotron">
+    <h1>Track your learning.</h1>
+  </div>
+{% endblock header %}
+<!--Invite users to register an account and describe the two main actions in
+Learning Log-->
+{% block content %}
+  <h2>
+    <a href="{% url 'users:register' %}">Register an account</a> to make your 
+    own Learning Log, and list the topics you're learning about.
+  </h2>
+  <h2>
+    Whenever you learn something new about a topic, make an entry summarising
+    what you've learned.
+  </h2>
+  
+{% endblock content %}

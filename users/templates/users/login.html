@@ -1,0 +1,30 @@
+<!--A template in one app can extend a template in another app.-->
+{% extends "learning_logs/base.html" %}
+{% load bootstrap3 %}
+
+<!--Define header block to describe what the page is for.-->
+{% block header %}
+  <h2>Log in to your account.</h2>
+{% endblock header %}
+  
+{% block content %}
+  <!--Removed if form.errors. Bootstrap3 handles form errors automatically-->
+    <!--The login view sends a form. Display the form and set up a submit 
+    button-->
+    <!--Pass "form" to class and use bootstrap_form to apply bootstrap style
+    rules to into the individual elements of the form-->
+  <form method="post" action="{% url 'users:login' %}" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    
+    <!--Open bootstrap template tag to add style to button-->
+    {% buttons %}
+      <button name="submit" class="btn btn-primary">Log in</button>
+    {% endbuttons %}
+    
+    <!--Include hidden form element to redirect the user after successful login
+    In this case send the user to the home page.-->
+    <input type="hidden" name="next" value="{% url 'learning_logs:index' %}" />
+  </form>
+  
+{% endblock content %}
